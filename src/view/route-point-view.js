@@ -34,7 +34,7 @@ function createListEventTemplate(point, offer, destinations) {
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-        ${offer.slice(2).map(({offers}) => offers.map(({title, price}) => `
+        ${offer.map(({offers}) => offers.slice(Math.floor(Math.random() * 5)).map(({title, price}) => `
           <li class="event__offer">
             <span class="event__offer-title">${title}</span>
             &plus;&euro;&nbsp;
