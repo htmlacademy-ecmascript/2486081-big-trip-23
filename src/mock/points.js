@@ -5,10 +5,10 @@ export const mockPoints = [
   {
     id: '1',
     basePrice: Math.floor(Math.random() * 200),
-    dateFrom: '2019-03-19T14:00',
-    dateTo: '2019-03-19T14:30',
+    dateFrom: `2019-03-19T14:${Math.floor(Math.random() * 40)}`,
+    dateTo: '2019-03-19T14:50',
     destination: '1',
-    isFavorite: true,
+    isFavorite: Math.random() < 0.5,
     offers: [
       '1'
     ],
@@ -17,10 +17,10 @@ export const mockPoints = [
   {
     id: '2',
     basePrice: Math.floor(Math.random() * 200),
-    dateFrom: '2019-03-11T12:30',
-    dateTo: '2019-03-11T19:30',
+    dateFrom: '2019-03-11T00:10',
+    dateTo: `2019-03-11T${Math.floor(Math.random() * 23)}:50`,
     destination: '2',
-    isFavorite: true,
+    isFavorite: Math.random() < 0.5,
     offers: [
       '2'
     ],
@@ -29,10 +29,10 @@ export const mockPoints = [
   {
     id: '3',
     basePrice: Math.floor(Math.random() * 200),
-    dateFrom: '2019-03-10T10:00',
-    dateTo: '2019-03-10T21:30',
+    dateFrom: `2019-03-10T${Math.floor(Math.random() * 22)}:00`,
+    dateTo: `2019-03-10T23:${Math.floor(Math.random() * 59)}`,
     destination: '3',
-    isFavorite: false,
+    isFavorite: Math.random() < 0.5,
     offers: [
       '3',
     ],

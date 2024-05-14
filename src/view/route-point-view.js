@@ -7,7 +7,7 @@ function createListEventTemplate(point, offer, destinations) {
   const currentDestination = destinations.find((destination) => destination.id === point.destination);
 
   const dayEventday = getDateEvent(dateFrom, 'D MMM');
-  const htmlDayEventday = getDateEvent(dateFrom, 'YYYY-MM-DD');
+  const htmlDayEvent = getDateEvent(dateFrom, 'YYYY-MM-DD');
   const startEvent = getDateEvent(dateFrom, 'HH:mm');
   const endEvent = getDateEvent(dateTo, 'HH:mm');
 
@@ -16,7 +16,7 @@ function createListEventTemplate(point, offer, destinations) {
   return (
     `<li class="trip-events__item">
       <div class="event">
-        <time class="event__date" datetime="${htmlDayEventday}">${dayEventday}</time>
+        <time class="event__date" datetime="${htmlDayEvent}">${dayEventday}</time>
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
         </div>
