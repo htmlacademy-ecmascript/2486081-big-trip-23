@@ -1,12 +1,12 @@
-import {getRandomPoints} from '../mock/points.js';
-import {getRandomOffers} from '../mock/offers.js';
-import {getRandomDestinations} from '../mock/destinations.js';
+import {mockPoints} from '../mock/points.js';
+import {mockOffers} from '../mock/offers.js';
+import {mockDestinations} from '../mock/destinations.js';
 
 export default class PointsModel {
   constructor () {
-    this.points = Array.from({length: 3}, getRandomPoints);
-    this.offers = Array.from({length: 5}, getRandomOffers);
-    this.destinations = Array.from({length: 3},getRandomDestinations);
+    this.points = mockPoints;
+    this.offers = mockOffers;
+    this.destinations = mockDestinations;
 
   }
 

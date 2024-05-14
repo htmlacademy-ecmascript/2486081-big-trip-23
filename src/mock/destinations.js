@@ -1,7 +1,7 @@
 import {DESTINATION, DESCRIPTION} from '../const.js';
 import {getRandomElement} from '../utils.js';
 
-const mockDestinations = [
+export const mockDestinations = [
   {
     id: '1',
     description: getRandomElement(DESCRIPTION),
@@ -40,8 +40,4 @@ const mockDestinations = [
   }
 ];
 
-function getRandomDestinations() {
-  return getRandomElement(mockDestinations);
-}
 
-export {getRandomDestinations};

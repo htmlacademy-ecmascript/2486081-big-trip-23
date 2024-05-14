@@ -1,10 +1,10 @@
 import {TYPES_POINTS} from '../const.js';
 import {getRandomElement} from '../utils.js';
 
-const mockPoints = [
+export const mockPoints = [
   {
     id: '1',
-    basePrice: 1100,
+    basePrice: Math.floor(Math.random() * 200),
     dateFrom: '2019-03-19T14:00',
     dateTo: '2019-03-19T14:30',
     destination: '1',
@@ -16,7 +16,7 @@ const mockPoints = [
   },
   {
     id: '2',
-    basePrice: 1500,
+    basePrice: Math.floor(Math.random() * 200),
     dateFrom: '2019-03-11T12:30',
     dateTo: '2019-03-11T19:30',
     destination: '2',
@@ -28,7 +28,7 @@ const mockPoints = [
   },
   {
     id: '3',
-    basePrice: 1700,
+    basePrice: Math.floor(Math.random() * 200),
     dateFrom: '2019-03-10T10:00',
     dateTo: '2019-03-10T21:30',
     destination: '3',
@@ -38,22 +38,4 @@ const mockPoints = [
     ],
     type: getRandomElement(TYPES_POINTS),
   },
-  {
-    id: '4',
-    basePrice: 2500,
-    dateFrom: '2019-03-14T11:00',
-    dateTo: '2019-03-14T23:30',
-    destination: '4',
-    isFavorite: false,
-    offers: [
-      '4'
-    ],
-    type: getRandomElement(TYPES_POINTS),
-  }
 ];
-
-function getRandomPoints() {
-  return getRandomElement(mockPoints);
-}
-
-export {getRandomPoints};

@@ -6,13 +6,14 @@ function getRandomElement(array) {
 
 function differenceTime(end, start) {
   const diff = dayjs(end).diff(dayjs(start), 'hours', true);
-  const hour = Math.floor(diff);
-  const min = Math.floor((diff - hour) * 60);
-  if (hour === 0) {
+  const hours = Math.floor(diff);
+  const min = Math.floor((diff - hours) * 60);
+
+  if (hours === 0) {
     return `${min}M`;
   }
 
-  return `${hour}H ${min}M`;
+  return `${hours}H ${min}M`;
 }
 
 function getDateEvent(date, format) {
