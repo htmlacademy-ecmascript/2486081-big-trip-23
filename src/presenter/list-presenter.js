@@ -1,27 +1,19 @@
-import SortsView from '../view/sort-view.js';
-import ListEventView from '../view/list-events-view.js';
-import EditPointView from '../view/edit-point-view.js';
-import RoutePointView from '../view/route-point-view.js';
-import {render} from '../render.js';
+import View from '../view/view.js';
+import PointsModel from '../model/point-model.js';
 export default class ListPresenter {
-  listEventComponent = new ListEventView();
+  #listContainer = null;
+  #model = new PointsModel();
+  #view = new View();
 
-  constructor({listContainer, pointsModel}) {
-    this.listContainer = listContainer;
-    this.pointsModel = pointsModel;
+  constructor({listContainer}) {
+    this.#listContainer = listContainer;
   }
 
   init() {
-    const points = [...this.pointsModel.getPoints()];
-    const offers = [...this.pointsModel.getOffers()];
-    const destinations = [...this.pointsModel.getDestinations()];
+    const points = [...this.#model.points];
+    const offers = [...this.#model.offers];
+    const destinations = [...this.#model.destinations];
 
-    render(new SortsView(), this.listContainer);//Сортировка
-    render(this.listEventComponent, this.listContainer);//Контейнер для точек
-    render(new EditPointView(points[Math.floor(Math.random() * 3)], offers, destinations), this.listEventComponent.getElement());//Форма редактирования
-
-    points.forEach((point) => {
-      render(new RoutePointView(point, offers, destinations), this.listEventComponent.getElement());//Обычная точка
-    });
+    this.#view.init(points, offers, destinations, this.#listContainer);
   }
 }
