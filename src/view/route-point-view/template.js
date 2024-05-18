@@ -1,31 +1,27 @@
-import {createElement} from '../render';
-import {differenceTime, getDateEvent} from '../utils.js';
+import dayjs from 'dayjs';
+import {differenceTime} from '../../utils';
 
-function createListEventTemplate(point, offer, destinations) {
+export function createRoutePointView(point, offers, destinations) {
 
   const {type, isFavorite, basePrice, dateFrom, dateTo} = point;
   const currentDestination = destinations.find((destination) => destination.id === point.destination);
-
-  const dayEventday = getDateEvent(dateFrom, 'D MMM');
-  const htmlDayEvent = getDateEvent(dateFrom, 'YYYY-MM-DD');
-  const startEvent = getDateEvent(dateFrom, 'HH:mm');
-  const endEvent = getDateEvent(dateTo, 'HH:mm');
-
+  const offersType = offers.find((offer) => offer.type === point.type).offers;
+  const pointOffer = offersType.filter((offType) => point.offers.includes(offType.id));
   const diffTime = differenceTime(dateTo, dateFrom);
 
   return (
     `<li class="trip-events__item">
       <div class="event">
-        <time class="event__date" datetime="${htmlDayEvent}">${dayEventday}</time>
+        <time class="event__date" datetime="${dayjs(dateFrom).format('YYYY-MM-DD')}">${dayjs(dateFrom).format('D MMM')}</time>
         <div class="event__type">
-          <img class="event__type-icon" width="42" height="42" src="img/icons/${type.toLowerCase()}.png" alt="Event type icon">
+          <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
         </div>
         <h3 class="event__title">${type} ${currentDestination.name}</h3>
         <div class="event__schedule">
           <p class="event__time">
-            <time class="event__start-time" datetime="${dateFrom}">${startEvent}</time>
+            <time class="event__start-time" datetime="${dateFrom}">${dayjs(dateFrom).format('HH:mm')}</time>
             &mdash;
-            <time class="event__end-time" datetime="${dateTo}">${endEvent}</time>
+            <time class="event__end-time" datetime="${dateTo}">${dayjs(dateTo).format('HH:mm')}</time>
           </p>
           <p class="event__duration">${diffTime}</p>
         </div>
@@ -34,11 +30,11 @@ function createListEventTemplate(point, offer, destinations) {
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-        ${offer.map(({offers}) => offers.slice(Math.floor(Math.random() * 5)).map(({title, price}) => `
+        ${pointOffer.map((offer) => (`
           <li class="event__offer">
-            <span class="event__offer-title">${title}</span>
+            <span class="event__offer-title">${offer.title}</span>
             &plus;&euro;&nbsp;
-            <span class="event__offer-price">${price}</span>
+            <span class="event__offer-price">${offer.price}</span>
           </li>`
     )).join('')}
         </ul>
@@ -54,29 +50,4 @@ function createListEventTemplate(point, offer, destinations) {
       </div>
     </li>`
   );
-}
-
-export default class RoutePointView {
-
-  constructor(point, offers, destinations) {
-    this.point = point;
-    this.offers = offers;
-    this.destinations = destinations;
-  }
-
-  getTemplate() {
-    return createListEventTemplate(this.point, this.offers, this.destinations);
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
 }
