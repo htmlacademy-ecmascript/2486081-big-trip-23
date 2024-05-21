@@ -1,6 +1,4 @@
-import {createElement} from '../render';
-
-function createListEventTemplate() {
+export function createNewPointTemplate() {
   return (
     `<li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
@@ -165,22 +163,4 @@ function createListEventTemplate() {
               </form>
             </li>`
   );
-}
-
-export default class NewPoinView {
-  getTemplate() {
-    return createListEventTemplate();
-  }
-
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
-    }
-
-    return this.element;
-  }
-
-  removeElement() {
-    this.element = null;
-  }
 }
