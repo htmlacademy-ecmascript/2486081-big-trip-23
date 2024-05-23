@@ -5,15 +5,18 @@ export default class EditPointView extends AbstractView {
   #points = null;
   #offers = null;
   #destinations = null;
+
   #onFormSubmit = null;
 
-  constructor(points, offers, destinations, {onFormSubmit}) {
+  constructor({points, offers, destinations, onFormSubmit}) {
     super();
     this.#points = points;
     this.#offers = offers;
     this.#destinations = destinations;
+
     this.#onFormSubmit = onFormSubmit;
     this.element.querySelector('form').addEventListener('submit', this.#formSubmitHandler);
+
   }
 
   get template() {
@@ -22,6 +25,6 @@ export default class EditPointView extends AbstractView {
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
-    this.#onFormSubmit();
+    this.#onFormSubmit(this.#points);
   };
 }

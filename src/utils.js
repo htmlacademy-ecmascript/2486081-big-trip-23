@@ -20,4 +20,7 @@ function getDateEvent(date, format) {
   return dayjs(date).format(format);
 }
 
-export {getRandomElement, differenceTime, getDateEvent};
+function updateItem(items, update) {
+  return items.map((item) => item.id === update.id ? update : item);
+}
+export {getRandomElement, differenceTime, getDateEvent, updateItem};
