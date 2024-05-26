@@ -2,26 +2,37 @@ import AbstractView from '../../framework/view/abstract-view';
 import {createRoutePointView} from './template';
 
 export default class RoutePointView extends AbstractView {
-  #point = null;
+  #points = null;
   #offers = null;
   #destinations = null;
-  #onOpenEventClick = null;
 
-  constructor(point, offers, destinations, {onButtonClick}) {
+  #onEditClick = null;
+  #onFavoriteClick = null;
+
+  constructor({points, offers, destinations, onEditClick, onFavoriteClick}) {
     super();
-    this.#point = point;
+    this.#points = points;
     this.#offers = offers;
     this.#destinations = destinations;
-    this.#onOpenEventClick = onButtonClick;
-    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#openEventClickHandler);
+
+    this.#onEditClick = onEditClick;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editClickHandler);
+
+    this.#onFavoriteClick = onFavoriteClick;
+    this.element.querySelector('.event__favorite-btn').addEventListener('click', this.#favoriteClickHandler);
   }
 
   get template() {
-    return createRoutePointView(this.#point, this.#offers, this.#destinations);
+    return createRoutePointView(this.#points, this.#offers, this.#destinations);
   }
 
-  #openEventClickHandler = (evt) => {
+  #editClickHandler = (evt) => {
     evt.preventDefault();
-    this.#onOpenEventClick();
+    this.#onEditClick();
+  };
+
+  #favoriteClickHandler = (evt) => {
+    evt.preventDefault();
+    this.#onFavoriteClick();
   };
 }
