@@ -71,8 +71,8 @@ export function createEditPointTemplate(point, offers, destinations) {
           <div class="event__available-offers">
           ${offersType.map((offer) => (`
             <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" ${offer.price > 160 ? 'checked' : ''}>
-              <label class="event__offer-label" for="event-offer-luggage-1">
+              <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${offersType.indexOf(offer) + 1}" type="checkbox" name="event-offer-luggage" >
+              <label class="event__offer-label" for="event-offer-luggage-${offersType.indexOf(offer) + 1}">
                 <span class="event__offer-title">${offer.title}</span>
                 &plus;&euro;&nbsp;
                 <span class="event__offer-price">${offer.price}</span>

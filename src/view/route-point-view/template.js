@@ -6,7 +6,6 @@ export function createRoutePointView(point, offers, destinations) {
   const {type, isFavorite, basePrice, dateFrom, dateTo} = point;
   const currentDestination = destinations.find((destination) => destination.id === point.destination);
   const offersType = offers.find((offer) => offer.type === point.type).offers;
-  const pointOffer = offersType.filter((offType) => point.offers.includes(offType.id));
   const diffTime = differenceTime(dateTo, dateFrom);
 
   return (
@@ -30,7 +29,7 @@ export function createRoutePointView(point, offers, destinations) {
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">
-        ${pointOffer.map((offer) => (`
+        ${offersType.map((offer) => (`
           <li class="event__offer">
             <span class="event__offer-title">${offer.title}</span>
             &plus;&euro;&nbsp;
