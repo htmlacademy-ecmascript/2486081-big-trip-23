@@ -50,7 +50,8 @@ export default class View {
       offers: this.#offers,
       destinations: this.#destinations,
 
-      onFormSubmit: this.#handleFormSubmit
+      onFormSubmit: this.#handleFormSubmit,
+      onDefailtPointClick: this.#handleDefailtPointClick,
     });
 
     if (prevPointComponent === null || prevEditPointComponet === null) {
@@ -88,6 +89,7 @@ export default class View {
   #onDocumentKeydown = (evt) =>{
     if (evt.key === 'Escape') {
       evt.preventDefault();
+      this.#editPointComponet.reset(this.#points);
       this.#switchToDefaultPoint();
       document.removeEventListener('keydown', this.#onDocumentKeydown);
     }
@@ -95,6 +97,11 @@ export default class View {
 
   #handleEditClick = () => {
     this.#switchToEdit();
+  };
+
+  #handleDefailtPointClick = () => {
+    this.#editPointComponet.reset(this.#points);
+    this.#switchToDefaultPoint();
   };
 
   #handleFormSubmit = (point) => {
@@ -108,6 +115,7 @@ export default class View {
 
   resetView() {
     if (this.#mode !== Mode.DEFAULT) {
+      this.#editPointComponet.reset(this.#points);
       this.#switchToDefaultPoint();
     }
   }

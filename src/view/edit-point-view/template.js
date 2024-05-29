@@ -7,7 +7,6 @@ export function createEditPointTemplate(point, offers, destinations) {
   const {type, basePrice, dateFrom, dateTo} = point;
   const currentDestination = destinations.find((destination) => destination.id === point.destination);
   const offersType = offers.find((offer) => offer.type === point.type).offers;
-  const pointOffer = offersType.filter((offType) => point.offers.includes(offType.id));
 
   return (
     `<li class="trip-events__item">
@@ -24,9 +23,9 @@ export function createEditPointTemplate(point, offers, destinations) {
             <fieldset class="event__type-group">
               <legend class="visually-hidden">Event type</legend>
               ${TYPES_POINTS.map((pointType) => (`<div class="event__type-item">
-                <input id="event-type-${pointType.toLowerCase()}-1" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${pointType.toLowerCase()}" ${pointType === type ? 'checked' : ' '}>
-                <label class="event__type-label  event__type-label--${pointType.toLowerCase()}" for="event-type-${pointType.toLowerCase()}-1">${pointType}</label>
-              </div>`)).join(' ')}
+              <input id="event-type-${pointType.toLowerCase()}-${TYPES_POINTS.indexOf(pointType) + 1}" class="event__type-input  visually-hidden" type="radio" name="event-type" value="${pointType.toLowerCase()}" ${pointType === type ? 'checked' : ' '}>
+              <label class="event__type-label  event__type-label--${pointType.toLowerCase()}" for="event-type-${pointType.toLowerCase()}-${TYPES_POINTS.indexOf(pointType) + 1}">${pointType}</label>
+            </div>`)).join(' ')}
             </fieldset>
           </div>
         </div>
@@ -70,10 +69,10 @@ export function createEditPointTemplate(point, offers, destinations) {
           <h3 class="event__section-title  event__section-title--offers">Offers</h3>
 
           <div class="event__available-offers">
-          ${pointOffer.map((offer) => (`
+          ${offersType.map((offer) => (`
             <div class="event__offer-selector">
-              <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-1" type="checkbox" name="event-offer-luggage" ${offer.price > 160 ? 'checked' : ''}>
-              <label class="event__offer-label" for="event-offer-luggage-1">
+              <input class="event__offer-checkbox  visually-hidden" id="event-offer-luggage-${offersType.indexOf(offer) + 1}" type="checkbox" name="event-offer-luggage" >
+              <label class="event__offer-label" for="event-offer-luggage-${offersType.indexOf(offer) + 1}">
                 <span class="event__offer-title">${offer.title}</span>
                 &plus;&euro;&nbsp;
                 <span class="event__offer-price">${offer.price}</span>
