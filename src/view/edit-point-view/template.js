@@ -1,13 +1,12 @@
 import dayjs from 'dayjs';
 import {TYPES_POINTS} from '../../const';
-
+import he from 'he';
 
 export function createEditPointTemplate(point, offers, destinations) {
 
   const {type, basePrice, dateFrom, dateTo} = point;
   const currentDestination = destinations.find((destination) => destination.id === point.destination);
   const offersType = offers.find((offer) => offer.type === point.type).offers;
-
   return (
     `<li class="trip-events__item">
       <form class="event event--edit" action="#" method="post">
@@ -34,7 +33,7 @@ export function createEditPointTemplate(point, offers, destinations) {
           <label class="event__label  event__type-output" for="event-destination-1">
             ${type}
           </label>
-          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${currentDestination.name}" list="destination-list-1">
+          <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${he.encode(currentDestination !== undefined ? currentDestination.name : '')}" list="destination-list-1">
           <datalist id="destination-list-1">
           ${destinations.map((destination) =>`
           <option value="${destination.name}"></option>
@@ -55,7 +54,7 @@ export function createEditPointTemplate(point, offers, destinations) {
             <span class="visually-hidden">Price</span>
             &euro;
           </label>
-          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${basePrice}">
+          <input class="event__input  event__input--price" id="event-price-1" type="text" name="event-price" value="${he.encode((basePrice.toString()))}">
         </div>
 
         <button class="event__save-btn  btn  btn--blue" type="submit">Save</button>
@@ -84,7 +83,7 @@ export function createEditPointTemplate(point, offers, destinations) {
 
         <section class="event__section  event__section--destination">
           <h3 class="event__section-title  event__section-title--destination">Destination</h3>
-          <p class="event__destination-description">${currentDestination.description}</p>
+          <p class="event__destination-description">${currentDestination !== undefined ? currentDestination.description : ''}</p>
         </section>
       </section>
       </form>
