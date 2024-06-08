@@ -5,7 +5,6 @@ export default class RoutePointView extends AbstractView {
   #points = null;
   #offers = null;
   #destinations = null;
-
   #onEditClick = null;
   #onFavoriteClick = null;
 
@@ -14,11 +13,10 @@ export default class RoutePointView extends AbstractView {
     this.#points = points;
     this.#offers = offers;
     this.#destinations = destinations;
-
     this.#onEditClick = onEditClick;
-    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editClickHandler);
-
     this.#onFavoriteClick = onFavoriteClick;
+
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#editClickHandler);
     this.element.querySelector('.event__favorite-btn').addEventListener('click', this.#favoriteClickHandler);
   }
 

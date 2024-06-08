@@ -1,13 +1,11 @@
 import dayjs from 'dayjs';
-import {differenceTime} from '../../utils';
+import he from 'he';
+import {differenceTime} from '../route-point-view/utils';
 
 export function createRoutePointView(point, offers, destinations) {
-
   const {type, isFavorite, basePrice, dateFrom, dateTo} = point;
   const currentDestination = destinations.find((destination) => destination.id === point.destination);
   const offersType = offers.find((offer) => offer.type === point.type).offers;
-  const diffTime = differenceTime(dateTo, dateFrom);
-
   return (
     `<li class="trip-events__item">
       <div class="event">
@@ -15,17 +13,17 @@ export function createRoutePointView(point, offers, destinations) {
         <div class="event__type">
           <img class="event__type-icon" width="42" height="42" src="img/icons/${type}.png" alt="Event type icon">
         </div>
-        <h3 class="event__title">${type} ${currentDestination.name}</h3>
+        <h3 class="event__title">${type} ${he.encode(currentDestination !== undefined ? currentDestination.name : '')}</h3>
         <div class="event__schedule">
           <p class="event__time">
             <time class="event__start-time" datetime="${dateFrom}">${dayjs(dateFrom).format('HH:mm')}</time>
             &mdash;
             <time class="event__end-time" datetime="${dateTo}">${dayjs(dateTo).format('HH:mm')}</time>
           </p>
-          <p class="event__duration">${diffTime}</p>
+          <p class="event__duration">${differenceTime(dateTo, dateFrom)}</p>
         </div>
         <p class="event__price">
-          &euro;&nbsp;<span class="event__price-value">${basePrice}</span>
+          &euro;&nbsp;<span class="event__price-value">${he.encode(basePrice.toString())}</span>
         </p>
         <h4 class="visually-hidden">Offers:</h4>
         <ul class="event__selected-offers">

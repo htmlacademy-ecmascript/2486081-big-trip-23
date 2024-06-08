@@ -1,25 +1,21 @@
+import {Mode, UpdateType, UserAction} from '../const';
+import {remove, render, replace} from '../framework/render';
 import EditPointView from './edit-point-view';
 import RoutePointView from './route-point-view';
-import {remove, render, replace} from '../framework/render';
-
-const Mode = {
-  DEFAULT: 'DEFAULT',
-  EDITING: 'EDITING'
-};
 
 export default class View {
+  #mode = Mode.DEFAULT;
+
   #listEventComponent = null;
-  #onDataChange = null;
-  #onModeChange = null;
+  #pointComponent = null;
+  #editPointComponet = null;
 
   #points = null;
   #offers = null;
   #destinations = null;
 
-  #pointComponent = null;
-  #editPointComponet = null;
-
-  #mode = Mode.DEFAULT;
+  #onDataChange = null;
+  #onModeChange = null;
 
   constructor({listEventComponent, onDataChange, onModeChange}) {
     this.#listEventComponent = listEventComponent;
@@ -28,10 +24,11 @@ export default class View {
   }
 
   init(points, offers, destinations) {
+
+
     this.#points = points;
     this.#offers = offers;
     this.#destinations = destinations;
-
 
     const prevPointComponent = this.#pointComponent;
     const prevEditPointComponet = this.#editPointComponet;
@@ -52,6 +49,7 @@ export default class View {
 
       onFormSubmit: this.#handleFormSubmit,
       onDefailtPointClick: this.#handleDefailtPointClick,
+      onDeletePointClick: this.#handleDeletePointClick
     });
 
     if (prevPointComponent === null || prevEditPointComponet === null) {
@@ -66,11 +64,8 @@ export default class View {
     if(this.#mode === Mode.EDITING) {
       replace(this.#editPointComponet,prevEditPointComponet);
     }
-
-
     remove(prevPointComponent);
     remove(prevEditPointComponet);
-
   }
 
   #switchToEdit() {
@@ -105,12 +100,16 @@ export default class View {
   };
 
   #handleFormSubmit = (point) => {
-    this.#onDataChange(point);
+    this.#onDataChange(UserAction.UPDATE_DATA, UpdateType.MINOR, point);
     this.#switchToDefaultPoint();
   };
 
   #handleFavoriteClick = () => {
-    this.#onDataChange({...this.#points, isFavorite: !this.#points.isFavorite});
+    this.#onDataChange(UserAction.UPDATE_DATA, UpdateType.PATCH, {...this.#points, isFavorite: !this.#points.isFavorite});
+  };
+
+  #handleDeletePointClick = (point) => {
+    this.#onDataChange(UserAction.DELETE_DATA, UpdateType.MINOR, point);
   };
 
   resetView() {
@@ -118,5 +117,10 @@ export default class View {
       this.#editPointComponet.reset(this.#points);
       this.#switchToDefaultPoint();
     }
+  }
+
+  destroy() {
+    remove(this.#pointComponent);
+    remove(this.#editPointComponet);
   }
 }
