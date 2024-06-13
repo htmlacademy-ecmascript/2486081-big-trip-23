@@ -132,7 +132,6 @@ export default class EventPresenter {
 
   #handleFormSubmit = (point) => {
     this.#onDataChange(UserAction.UPDATE_DATA, UpdateType.MINOR, point);
-    this.#switchToDefaultPoint();
   };
 
   #handleFavoriteClick = () => {

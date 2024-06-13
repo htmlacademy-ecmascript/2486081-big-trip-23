@@ -1,12 +1,15 @@
 import {RenderPosition, remove, render} from '../framework/render';
-import {UpdateType, UserAction} from '../const';
+import {FilterType, UpdateType, UserAction} from '../const';
 import EditPointView from '../view/edit-point-view';
+import NoPointView from '../view/no-point-view';
 
 export default class NewPointPresenter {
+  #points = null;
   #newPointComponent = null;
   #listContainer = null;
   #onDataChange = null;
   #buttonAddEvent = null;
+  #noPointsComponent = new NoPointView({filterType: FilterType.EVERYTHING});
 
   constructor({listContainer, onDataChange, buttonAddEvent}) {
     this.#listContainer = listContainer;
@@ -14,7 +17,8 @@ export default class NewPointPresenter {
     this.#buttonAddEvent = buttonAddEvent;
   }
 
-  init(offers, destinations) {
+  init(points, offers, destinations) {
+    this.#points = points;
     if(this.#newPointComponent !== null) {
       return;
     }
@@ -63,13 +67,21 @@ export default class NewPointPresenter {
     this.#onDataChange(UserAction.ADD_DATA, UpdateType.MINOR, points);
   };
 
+  #noPoints () {
+    if(this.#points.length === 0) {
+      render(this.#noPointsComponent, this.#listContainer);
+    }
+  }
+
   #handelCancelClick = () => {
+    this.#noPoints();
     this.destroy();
   };
 
   #escKeyDownHandler = (evt) => {
     if (evt.key === 'Escape') {
       evt.preventDefault();
+      this.#noPoints();
       this.destroy();
     }
   };

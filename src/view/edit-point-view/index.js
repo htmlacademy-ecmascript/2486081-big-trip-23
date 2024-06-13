@@ -67,13 +67,13 @@ export default class EditPointView extends AbstractStatefulView {
     );
   }
 
-  removeElement() {
-    super.removeElement();
-    if(this.#datepicker) {
-      this.#datepicker.destroy();
-      this.#datepicker = null;
-    }
-  }
+  // removeElement() {
+  //   super.removeElement();
+  //   if(this.#datepicker) {
+  //     this.#datepicker.destroy();
+  //     this.#datepicker = null;
+  //   }
+  // }
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();
@@ -82,7 +82,8 @@ export default class EditPointView extends AbstractStatefulView {
 
   #typeChangeHandler = (evt) => {
     this.updateElement({
-      type: evt.target.value
+      type: evt.target.value,
+      offers: []
     });
   };
 

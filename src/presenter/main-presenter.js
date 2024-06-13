@@ -93,13 +93,14 @@ export default class MainPresenter {
     this.#NewEventPresenter = new NewEventPresenter({
       listContainer: this.#listEventComponent.element,
       onDataChange: this.#handleViewAction,
-      buttonAddEvent: this.#buttonAddEvent
+      buttonAddEvent: this.#buttonAddEvent,
     });
 
     this.#buttonAddEvent.addEventListener('click', () => {
       this.#handleModeChange();
       this.#buttonAddEvent.disabled = true;
-      this.createNewPoint(this.offers, this.destinations);
+      this.createNewPoint(points, this.offers, this.destinations);
+      remove(this.#noPointsComponent);
     });
 
     if(points.length === 0) {
@@ -161,10 +162,10 @@ export default class MainPresenter {
     this.#pointsMap.set(point.id, events);
   }
 
-  createNewPoint(offers, destinations) {
+  createNewPoint(points, offers, destinations) {
     this.#currentSortType = SortingType.DAY;
     this.#filterModel.setFilter(UpdateType.MAJOR, FilterType.EVERYTHING);
-    this.#NewEventPresenter.init(offers, destinations);
+    this.#NewEventPresenter.init(points, offers, destinations);
   }
 
   #handleSortChange = (sortType) => {
@@ -238,7 +239,7 @@ export default class MainPresenter {
 
   #clearPoints({resetSortType = false} = {}) {
     this.#NewEventPresenter.destroy();
-    this.#InfoTripPresenter.destroy();
+
 
     this.#pointsMap.forEach((view) => view.destroy());
     this.#pointsMap.clear();
@@ -246,7 +247,9 @@ export default class MainPresenter {
     remove(this.#sortsComponent);
     remove(this.#loadingComponent);
     remove(this.#listEventComponent);
-
+    if (this.#InfoTripPresenter) {
+      this.#InfoTripPresenter.destroy();
+    }
     if (this.#noPointsComponent) {
       remove(this.#noPointsComponent);
     }

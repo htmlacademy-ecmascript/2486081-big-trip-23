@@ -4,7 +4,7 @@ import he from 'he';
 
 function createEventDate(dateFrom) {
   return (`
-  <time class="event__date" datetime="${dayjs(dateFrom).format('YYYY-MM-DD')}">${dayjs(dateFrom).format('D MMM')}</time>
+  <time class="event__date" datetime="${dayjs(dateFrom).format('YYYY-MM-DD')}">${dayjs(dateFrom).format('MMM D')}</time>
     `);
 }
 
