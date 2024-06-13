@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+
 function differenceTime(end, start) {
   const diff = dayjs(end).diff(dayjs(start), 'days', true);
   const day = Math.floor(diff);
@@ -12,4 +13,5 @@ function differenceTime(end, start) {
   }
   return `${day}D ${hours}H ${min}M`;
 }
+
 export {differenceTime};
