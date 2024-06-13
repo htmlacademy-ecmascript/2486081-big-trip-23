@@ -1,5 +1,6 @@
 const TYPES_POINTS = ['Taxi', 'Bus', 'Train', 'Ship', 'Drive', 'Flight', 'Check-in', 'Sightseeing', 'Restaurant'];
-
+const AUTHORIZATION = 'Basic davaiRabotaiServer';
+const END_POINT = 'https://23.objects.htmlacademy.pro/big-trip';
 const TYPES_SORT = ['day', 'event', 'time', 'price', 'offers'];
 
 const Mode = {
@@ -16,7 +17,8 @@ const UserAction = {
 const UpdateType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
-  MAJOR: 'MAJOR'
+  MAJOR: 'MAJOR',
+  INIT: 'INIT'
 };
 
 const SortingType = {
@@ -32,21 +34,33 @@ const FilterType = {
   PAST: 'PAST'
 };
 
-const MessagaFilters = {
+const MessagesFilters = {
   EVERYTHING: 'Click New Event to create your first point',
   FUTURE: 'There are no future events now',
   PRESENT:  'There are no present events now',
   PAST:  'There are no past events now'
 };
 
+const Method = {
+  GET: 'GET',
+  PUT: 'PUT',
+  POST: 'POST',
+  DELETE: 'DELETE'
+};
+
 const defaultPoints = {
-  id: '0',
   basePrice: 0,
-  dateFrom: new Date(),
-  dateTo: new Date(Date.now() + 9999999),
+  dateFrom: '',
+  dateTo: '',
   destination: '',
   isFavorite: false,
-  offers: [ ],
-  type: 'bus'
+  offers: [],
+  type: 'flight'
 };
-export {TYPES_POINTS,TYPES_SORT, Mode, UserAction, UpdateType, SortingType, FilterType, MessagaFilters, defaultPoints};
+
+const TimeLimit = {
+  LOWER_LIMIT:350,
+  UPPER_LIMIT:10
+};
+
+export {TYPES_POINTS,TYPES_SORT, END_POINT, AUTHORIZATION, Mode, UserAction, UpdateType, SortingType, FilterType, MessagesFilters, Method,defaultPoints, TimeLimit};

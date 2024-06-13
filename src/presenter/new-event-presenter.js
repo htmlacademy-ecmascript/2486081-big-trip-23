@@ -1,9 +1,9 @@
 import {RenderPosition, remove, render} from '../framework/render';
 import {UpdateType, UserAction} from '../const';
-import NewPointView from '../view/new-point-view';
+import EditPointView from '../view/edit-point-view';
 
 export default class NewPointPresenter {
-  #newPointComponet = null;
+  #newPointComponent = null;
   #listContainer = null;
   #onDataChange = null;
   #buttonAddEvent = null;
@@ -15,29 +15,48 @@ export default class NewPointPresenter {
   }
 
   init(offers, destinations) {
-    if(this.#newPointComponet !== null) {
+    if(this.#newPointComponent !== null) {
       return;
     }
-    this.#newPointComponet = new NewPointView({
+    this.#newPointComponent = new EditPointView({
       offers: offers,
       destinations: destinations,
       onFormSubmit: this.#handleFormSubmit,
-      onCancelClick: this.#handelCancelClick
+      onDeletePointClick: this.#handelCancelClick
     });
 
-    render(this.#newPointComponet, this.#listContainer, RenderPosition.AFTERBEGIN);
+    render(this.#newPointComponent, this.#listContainer, RenderPosition.AFTERBEGIN);
     document.addEventListener('keydown', this.#escKeyDownHandler);
   }
 
   destroy() {
-    if (this.#newPointComponet === null) {
+    if (this.#newPointComponent === null) {
       return;
     }
     this.#buttonAddEvent.disabled = false;
 
-    remove(this.#newPointComponet);
-    this.#newPointComponet = null;
+    remove(this.#newPointComponent);
+    this.#newPointComponent = null;
     document.removeEventListener('keydown', this.#escKeyDownHandler);
+  }
+
+  setSaving() {
+    this.#newPointComponent.updateElement({
+      isDisabled: true,
+      isSaving: true,
+    });
+  }
+
+  setAborting() {
+    const resetFormState = () => {
+      this.#newPointComponent.updateElement({
+        isDisabled: false,
+        isSaving: false,
+        isDeleting: false,
+      });
+    };
+
+    this.#newPointComponent.shake(resetFormState);
   }
 
   #handleFormSubmit = (points) => {
