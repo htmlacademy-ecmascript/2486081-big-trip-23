@@ -173,14 +173,14 @@ export default class MainPresenter {
     this.#pointsMap.forEach((view) => view.resetView());
   };
 
-  #handleViewAction = (actionType, updateType, update) => {
+  #handleViewAction = async (actionType, updateType, update) => {
     this.#uiBlocker.block();
 
     switch(actionType) {
       case UserAction.UPDATE_DATA:
         this.#pointsMap.get(update.id).setSaving();
         try {
-          this.#eventsModel.updatePoints(updateType, update);
+          await this.#eventsModel.updatePoints(updateType, update);
         } catch(err) {
           this.#pointsMap.get(update.id).setAborting();
         }
@@ -188,7 +188,7 @@ export default class MainPresenter {
       case UserAction.ADD_DATA:
         this.#NewEventPresenter.setSaving();
         try {
-          this.#eventsModel.addPoints(updateType, update);
+          await this.#eventsModel.addPoints(updateType, update);
         } catch {
           this.#NewEventPresenter.setAborting();
         }
@@ -196,7 +196,7 @@ export default class MainPresenter {
       case UserAction.DELETE_DATA:
         this.#pointsMap.get(update.id).setDeleting();
         try {
-          this.#eventsModel.deletePoints(updateType, update);
+          await this.#eventsModel.deletePoints(updateType, update);
         } catch {
           this.#pointsMap.get(update.id).setAborting();
         }
