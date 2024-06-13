@@ -6,6 +6,7 @@ export default class EventsModel extends Observable {
   #points = [];
   #offers = [];
   #destinations = [];
+  #isError = true;
 
   constructor ({eventsApiService}) {
     super();
@@ -24,8 +25,13 @@ export default class EventsModel extends Observable {
     return this.#destinations;
   }
 
+  get isErrorPoint() {
+    return this.#isError;
+  }
+
   async init() {
     try {
+      this.#isError = false;
       const points = await this.#eventsApiService.points;
       const offers = await this.#eventsApiService.offers;
       const destinations = await this.#eventsApiService.destinations;
@@ -34,6 +40,7 @@ export default class EventsModel extends Observable {
       this.#offers = offers;
       this.#destinations = destinations;
     } catch(err) {
+      this.#isError = true;
       this.#points = [];
       this.#offers = [];
       this.#destinations = [];

@@ -10,6 +10,7 @@ import LoadingView from '../view/loading-view.js/index.js';
 import NoPointView from '../view/no-point-view/index';
 import SortsView from '../view/sorting-view/index';
 import EventPresenter from '../presenter/event-presenter';
+import ErrorPoint from '../view/error-point-view/index.js';
 
 export default class MainPresenter {
   #filterType = FilterType.EVERYTHING;
@@ -31,6 +32,8 @@ export default class MainPresenter {
     lowerLimit: TimeLimit.LOWER_LIMIT,
     upperLimit: TimeLimit.UPPER_LIMIT
   });
+
+  #errorComponent = new ErrorPoint();
 
   constructor({listContainer, eventsModel, filterModel, buttonNewEvent, infoContainer}) {
     this.#listContainer = listContainer;
@@ -77,6 +80,12 @@ export default class MainPresenter {
 
     if(this.#isLoading) {
       this.#renderLoading();
+      return;
+    }
+
+    if(this.#eventsModel.isErrorPoint) {
+      this.#buttonAddEvent.disabled = true;
+      render(this.#errorComponent, this.#listContainer);
       return;
     }
 
