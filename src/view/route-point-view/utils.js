@@ -8,12 +8,15 @@ function differenceTime(end, start) {
   const hours = dayjs.duration(dayjs(end).diff(dayjs(start))).format('HH[h]');
   const minute = dayjs.duration(dayjs(end).diff(dayjs(start))).format('mm[m]');
 
-  if(day === 0) {
+
+  if(day === '0d') {
     return `${hours} ${minute}`;
   }
-  if (hours === 0 && day === 0) {
+
+  if (hours === '00h' && day === '00d') {
     return `${minute}`;
   }
+
 
   return `${day} ${hours} ${minute}`;
 }
