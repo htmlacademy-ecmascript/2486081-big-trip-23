@@ -1,6 +1,6 @@
-import { render } from '../../framework/render';
-import AbstractView from '../../framework/view/abstract-view';
 import {createListEventTemplate} from './template';
+import {render} from '../../framework/render';
+import AbstractView from '../../framework/view/abstract-view';
 
 export default class ListEventView extends AbstractView {
   #listContainer = null;
