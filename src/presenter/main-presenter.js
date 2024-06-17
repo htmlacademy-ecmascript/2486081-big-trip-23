@@ -1,7 +1,7 @@
-import {FilterType, SortingType, TimeLimit, UpdateType, UserAction} from '../const.js';
-import {sortingByDay, sortingByPrice, sortingByTime} from '../view/sorting-view/utils.js';
+import {FilteringType, SortingType, TimeLimit, UpdatingType, UserAction} from '../const.js';
+import {sortByDays, sortByPrices, sortByTime} from '../view/sorting-view/utils.js';
 import {remove, render} from '../framework/render.js';
-import {filter} from '../view/filter-view/utils.js';
+import {Filter} from '../view/filter-view/utils.js';
 import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
 import InfoTripPresenter from './info-trip-presenter.js';
 import NewEventPresenter from '../presenter/new-event-presenter';
@@ -13,7 +13,7 @@ import EventPresenter from '../presenter/event-presenter';
 import ErrorPoint from '../view/error-point-view/index.js';
 
 export default class MainPresenter {
-  #filterType = FilterType.EVERYTHING;
+  #filterType = FilteringType.EVERYTHING;
   #currentSortType = SortingType.DAY;
   #eventsModel = null;
   #filterModel = null;
@@ -49,15 +49,15 @@ export default class MainPresenter {
   get points() {
     this.#filterType = this.#filterModel.filter;
     const points = this.#eventsModel.points;
-    const filteredPoints = filter[this.#filterType](points);
+    const filteredPoints = Filter[this.#filterType](points);
 
     switch (this.#currentSortType) {
       case SortingType.DAY:
-        return filteredPoints.sort(sortingByDay);
+        return filteredPoints.sort(sortByDays);
       case SortingType.TIME:
-        return filteredPoints.sort(sortingByTime);
+        return filteredPoints.sort(sortByTime);
       case SortingType.PRICE:
-        return filteredPoints.sort(sortingByPrice);
+        return filteredPoints.sort(sortByPrices);
     }
 
     return filteredPoints;
@@ -84,8 +84,7 @@ export default class MainPresenter {
     }
 
     if(this.#eventsModel.isErrorPoint) {
-      this.#buttonAddEvent.disabled = true;
-      render(this.#errorComponent, this.#listContainer);
+      this.#renderIsError();
       return;
     }
 
@@ -151,6 +150,11 @@ export default class MainPresenter {
     render(this.#loadingComponent, this.#listContainer);
   }
 
+  #renderIsError() {
+    this.#buttonAddEvent.disabled = true;
+    render(this.#errorComponent, this.#listContainer);
+  }
+
   #EventView(point, offers, destinations) {
     const events = new EventPresenter({
       listEventComponent: this.#listEventComponent,
@@ -164,7 +168,7 @@ export default class MainPresenter {
 
   createNewPoint(points, offers, destinations) {
     this.#currentSortType = SortingType.DAY;
-    this.#filterModel.setFilter(UpdateType.MAJOR, FilterType.EVERYTHING);
+    this.#filterModel.setFilter(UpdatingType.MAJOR, FilteringType.EVERYTHING);
     this.#NewEventPresenter.init(points, offers, destinations);
   }
 
@@ -218,18 +222,18 @@ export default class MainPresenter {
 
   #handleModelEvent = async (updateType, data) => {
     switch(updateType) {
-      case UpdateType.PATCH:
+      case UpdatingType.PATCH:
         this.#pointsMap.get(data.id).init(data, this.offers, this.destinations);
         break;
-      case UpdateType.MINOR:
+      case UpdatingType.MINOR:
         this.#clearPoints();
         this.#renderInterface();
         break;
-      case UpdateType.MAJOR:
+      case UpdatingType.MAJOR:
         this.#clearPoints({resetSortType: true});
         this.#renderInterface();
         break;
-      case UpdateType.INIT:
+      case UpdatingType.INIT:
         this.#isLoading = false;
         remove(this.#loadingComponent);
         this.#renderInterface();

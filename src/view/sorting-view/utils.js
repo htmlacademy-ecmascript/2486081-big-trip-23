@@ -1,17 +1,17 @@
 import dayjs from 'dayjs';
 
-function sortingByDay(pointA, pointB) {
+function sortByDays(pointA, pointB) {
   const dateA = dayjs(pointA.dateFrom);
   const dateB = dayjs(pointB.dateFrom);
   return dateA - dateB;
 }
-function sortingByTime(pointA, pointB) {
+function sortByTime(pointA, pointB) {
   const diffPointA = dayjs(pointA.dateTo).diff(dayjs(pointA.dateFrom), 'hours', true);
   const diffPointB = dayjs(pointB.dateTo).diff(dayjs(pointB.dateFrom), 'hours', true);
   return diffPointB - diffPointA;
 }
 
-function sortingByPrice(pointA, pointB) {
+function sortByPrices(pointA, pointB) {
   return pointB.basePrice - pointA.basePrice;
 }
 
@@ -26,5 +26,5 @@ function isDisabled(type) {
   return '';
 }
 
-export {sortingByDay, sortingByTime, sortingByPrice, isChecked, isDisabled};
+export {sortByDays, sortByTime, sortByPrices, isChecked, isDisabled};
 

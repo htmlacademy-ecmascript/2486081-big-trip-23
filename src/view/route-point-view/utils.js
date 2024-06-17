@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import duration from 'dayjs/plugin/duration';
 dayjs.extend(duration);
 
-function differenceTime(end, start) {
+function getDifferenceTime(end, start) {
   const diffDay = dayjs(end).diff(dayjs(start), 'days');
   const day = dayjs.duration({day: diffDay}).format('DD[d]');
   const hours = dayjs.duration(dayjs(end).diff(dayjs(start))).format('HH[h]');
@@ -21,4 +21,4 @@ function differenceTime(end, start) {
   return `${day} ${hours} ${minute}`;
 }
 
-export {differenceTime};
+export {getDifferenceTime};

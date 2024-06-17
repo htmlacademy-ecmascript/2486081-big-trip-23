@@ -1,6 +1,6 @@
-import {FilterType, UpdateType} from '../const';
+import {FilteringType, UpdatingType} from '../const';
 import {remove, render, replace} from '../framework/render';
-import {filter} from '../view/filter-view/utils';
+import {Filter} from '../view/filter-view/utils';
 import FiltersView from '../view/filter-view';
 
 export default class FilterPresenter {
@@ -20,7 +20,7 @@ export default class FilterPresenter {
 
   get filters() {
     const points = this.#eventsModel.points;
-    return Object.values(FilterType).map((type) => ({type,count: filter[type](points).length}));
+    return Object.values(FilteringType).map((type) => ({type,count: Filter[type](points).length}));
   }
 
   init() {
@@ -50,6 +50,6 @@ export default class FilterPresenter {
     if (this.#filterModel.filter === filterType) {
       return;
     }
-    this.#filterModel.setFilter(UpdateType.MAJOR, filterType);
+    this.#filterModel.setFilter(UpdatingType.MAJOR, filterType);
   };
 }

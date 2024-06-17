@@ -1,4 +1,4 @@
-import {defaultPoints} from '../../const';
+import {defaultPoint} from '../../const';
 import {createEditPointTemplate} from './template';
 import AbstractStatefulView from '../../framework/view/abstract-stateful-view';
 import flatpickr from 'flatpickr';
@@ -12,7 +12,7 @@ export default class EditPointView extends AbstractStatefulView {
   #onDefaultPointClick = null;
   #onDeletePointClick = null;
 
-  constructor({points = defaultPoints, offers, destinations, onFormSubmit, onDefaultPointClick, onDeletePointClick}) {
+  constructor({points = defaultPoint, offers, destinations, onFormSubmit, onDefaultPointClick, onDeletePointClick}) {
     super();
     this._setState(EditPointView.parsePointToState(points));
     this.#offers = offers;
@@ -66,14 +66,6 @@ export default class EditPointView extends AbstractStatefulView {
       EditPointView.parsePointToState(points)
     );
   }
-
-  // removeElement() {
-  //   super.removeElement();
-  //   if(this.#datepicker) {
-  //     this.#datepicker.destroy();
-  //     this.#datepicker = null;
-  //   }
-  // }
 
   #formSubmitHandler = (evt) => {
     evt.preventDefault();

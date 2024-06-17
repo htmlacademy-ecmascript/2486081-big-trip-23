@@ -1,4 +1,4 @@
-import {Mode, UpdateType, UserAction} from '../const';
+import {Mode, UpdatingType, UserAction} from '../const';
 import {remove, render, replace} from '../framework/render';
 import EditPointView from '../view/edit-point-view';
 import RoutePointView from '../view/route-point-view';
@@ -131,15 +131,15 @@ export default class EventPresenter {
   };
 
   #handleFormSubmit = (point) => {
-    this.#onDataChange(UserAction.UPDATE_DATA, UpdateType.MINOR, point);
+    this.#onDataChange(UserAction.UPDATE_DATA, UpdatingType.MINOR, point);
   };
 
   #handleFavoriteClick = () => {
-    this.#onDataChange(UserAction.UPDATE_DATA, UpdateType.PATCH, {...this.#points, isFavorite: !this.#points.isFavorite});
+    this.#onDataChange(UserAction.UPDATE_DATA, UpdatingType.PATCH, {...this.#points, isFavorite: !this.#points.isFavorite});
   };
 
   #handleDeletePointClick = (point) => {
-    this.#onDataChange(UserAction.DELETE_DATA, UpdateType.MINOR, point);
+    this.#onDataChange(UserAction.DELETE_DATA, UpdatingType.MINOR, point);
   };
 
   resetView() {

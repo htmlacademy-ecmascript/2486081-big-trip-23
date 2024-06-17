@@ -1,6 +1,9 @@
 const TYPES_POINTS = ['Taxi', 'Bus', 'Train', 'Ship', 'Drive', 'Flight', 'Check-in', 'Sightseeing', 'Restaurant'];
+
 const AUTHORIZATION = 'Basic davaiRabotaiServer';
+
 const END_POINT = 'https://23.objects.htmlacademy.pro/big-trip';
+
 const TYPES_SORT = ['day', 'event', 'time', 'price', 'offers'];
 
 const Mode = {
@@ -14,7 +17,7 @@ const UserAction = {
   DELETE_DATA: 'DELETE_DATA'
 };
 
-const UpdateType = {
+const UpdatingType = {
   PATCH: 'PATCH',
   MINOR: 'MINOR',
   MAJOR: 'MAJOR',
@@ -27,7 +30,7 @@ const SortingType = {
   PRICE: 'sort-price',
 };
 
-const FilterType = {
+const FilteringType = {
   EVERYTHING: 'EVERYTHING',
   FUTURE: 'FUTURE',
   PRESENT: 'PRESENT',
@@ -48,7 +51,7 @@ const Method = {
   DELETE: 'DELETE'
 };
 
-const defaultPoints = {
+const defaultPoint = {
   basePrice: 0,
   dateFrom: '',
   dateTo: '',
@@ -63,4 +66,4 @@ const TimeLimit = {
   UPPER_LIMIT:10
 };
 
-export {TYPES_POINTS,TYPES_SORT, END_POINT, AUTHORIZATION, Mode, UserAction, UpdateType, SortingType, FilterType, MessagesFilters, Method,defaultPoints, TimeLimit};
+export {TYPES_POINTS, TYPES_SORT, END_POINT, AUTHORIZATION, Mode, UserAction, UpdatingType, SortingType, FilteringType, MessagesFilters, Method, defaultPoint, TimeLimit};

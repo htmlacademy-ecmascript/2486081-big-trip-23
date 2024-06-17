@@ -1,4 +1,4 @@
-import {differenceTime} from '../route-point-view/utils';
+import {getDifferenceTime} from '../route-point-view/utils';
 import dayjs from 'dayjs';
 import he from 'he';
 
@@ -28,7 +28,7 @@ function createSchedule(dateFrom, dateTo) {
     &mdash;
     <time class="event__end-time" datetime="${dateTo}">${dayjs(dateTo).format('HH:mm')}</time>
     </p>
-    <p class="event__duration">${differenceTime(dateTo, dateFrom)}</p>
+    <p class="event__duration">${getDifferenceTime(dateTo, dateFrom)}</p>
     </div>
     `);
 }

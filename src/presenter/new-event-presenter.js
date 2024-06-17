@@ -1,5 +1,5 @@
 import {RenderPosition, remove, render} from '../framework/render';
-import {FilterType, UpdateType, UserAction} from '../const';
+import {FilteringType, UpdatingType, UserAction} from '../const';
 import EditPointView from '../view/edit-point-view';
 import NoPointView from '../view/no-point-view';
 
@@ -9,7 +9,7 @@ export default class NewPointPresenter {
   #listContainer = null;
   #onDataChange = null;
   #buttonAddEvent = null;
-  #noPointsComponent = new NoPointView({filterType: FilterType.EVERYTHING});
+  #noPointsComponent = new NoPointView({filterType: FilteringType.EVERYTHING});
 
   constructor({listContainer, onDataChange, buttonAddEvent}) {
     this.#listContainer = listContainer;
@@ -64,7 +64,7 @@ export default class NewPointPresenter {
   }
 
   #handleFormSubmit = (points) => {
-    this.#onDataChange(UserAction.ADD_DATA, UpdateType.MINOR, points);
+    this.#onDataChange(UserAction.ADD_DATA, UpdatingType.MINOR, points);
   };
 
   #noPoints () {

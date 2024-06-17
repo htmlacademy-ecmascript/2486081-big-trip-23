@@ -31,6 +31,7 @@ function createEventFieldGroup(type, currentDestination) {
     <input class="event__input  event__input--destination" id="event-destination-1" type="text" name="event-destination" value="${he.encode(currentDestination !== undefined ? currentDestination.name : '')}" list="destination-list-1">
     `);
 }
+
 function createDatalistDestination(destinations) {
   return (`
     <datalist id="destination-list-1">

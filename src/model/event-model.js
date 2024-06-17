@@ -1,5 +1,5 @@
 import Observable from '../framework/observable';
-import {UpdateType} from '../const';
+import {UpdatingType} from '../const';
 
 export default class EventsModel extends Observable {
   #eventsApiService = null;
@@ -45,7 +45,7 @@ export default class EventsModel extends Observable {
       this.#offers = [];
       this.#destinations = [];
     }
-    this._notify(UpdateType.INIT);
+    this._notify(UpdatingType.INIT);
   }
 
   async updatePoints(updateType, update) {

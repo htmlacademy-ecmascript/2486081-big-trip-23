@@ -1,5 +1,5 @@
 import {RenderPosition, remove, render, replace} from '../framework/render';
-import {sortingByDay} from '../view/sorting-view/utils';
+import {sortByDays} from '../view/sorting-view/utils';
 import InfoTripView from '../view/info-trip-view';
 
 export default class InfoTripPresenter {
@@ -13,7 +13,7 @@ export default class InfoTripPresenter {
   }
 
   init() {
-    const point = this.#eventsModel.points.toSorted(sortingByDay);
+    const point = this.#eventsModel.points.toSorted(sortByDays);
     const offers = this.#eventsModel.offers;
     const destinations = this.#eventsModel.destinations;
 
