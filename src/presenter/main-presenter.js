@@ -220,7 +220,7 @@ export default class MainPresenter {
     this.#uiBlocker.unblock();
   };
 
-  #handleModelEvent = async (updateType, data) => {
+  #handleModelEvent = (updateType, data) => {
     switch(updateType) {
       case UpdatingType.PATCH:
         this.#pointsMap.get(data.id).init(data, this.offers, this.destinations);
