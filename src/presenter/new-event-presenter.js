@@ -3,7 +3,7 @@ import {FilteringType, UpdatingType, UserAction} from '../const';
 import EditPointView from '../view/edit-point-view';
 import NoPointView from '../view/no-point-view';
 
-export default class NewPointPresenter {
+export default class NewEventPresenter {
   #points = null;
   #newPointComponent = null;
   #listContainer = null;

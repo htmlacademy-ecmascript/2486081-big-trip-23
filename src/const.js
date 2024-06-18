@@ -62,8 +62,8 @@ const defaultPoint = {
 };
 
 const TimeLimit = {
-  LOWER_LIMIT:350,
-  UPPER_LIMIT:10
+  LOWER_LIMIT: 350,
+  UPPER_LIMIT: 1000
 };
 
 export {TYPES_POINTS, TYPES_SORT, END_POINT, AUTHORIZATION, Mode, UserAction, UpdatingType, SortingType, FilteringType, MessagesFilters, Method, defaultPoint, TimeLimit};

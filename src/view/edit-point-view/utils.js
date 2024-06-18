@@ -1,5 +1,5 @@
-function adaptToLowerCase(string) {
-  return string.toLowerCase();
+function adaptToLowerCase(data) {
+  return data.toLowerCase();
 }
 
 function getIdOffer(pointsType, offersType) {
