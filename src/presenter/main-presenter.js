@@ -1,16 +1,16 @@
-import {FilteringType, SortingType, TimeLimit, UpdatingType, UserAction} from '../const.js';
-import {sortByDays, sortByPrices, sortByTime} from '../view/sorting-view/utils.js';
-import {remove, render} from '../framework/render.js';
-import {Filter} from '../view/filter-view/utils.js';
-import UiBlocker from '../framework/ui-blocker/ui-blocker.js';
-import InfoTripPresenter from './info-trip-presenter.js';
+import {FilteringType, SortingType, TimeLimit, UpdatingType, UserAction} from '../const';
+import {sortByDays, sortByPrices, sortByTime} from '../view/sorting-view/utils';
+import {remove, render} from '../framework/render';
+import {Filter} from '../view/filter-view/utils';
+import UiBlocker from '../framework/ui-blocker/ui-blocker';
+import InfoTripPresenter from './info-trip-presenter';
 import NewEventPresenter from '../presenter/new-event-presenter';
-import ListEventView from '../view/list-events-view/index';
-import LoadingView from '../view/loading-view.js/index.js';
-import NoPointView from '../view/no-point-view/index';
-import SortsView from '../view/sorting-view/index';
 import EventPresenter from '../presenter/event-presenter';
-import ErrorPoint from '../view/error-point-view/index.js';
+import ListEventsView from '../view/list-events-view/index';
+import LoadingView from '../view/loading-view.js/index';
+import NoPointView from '../view/no-point-view/index';
+import SortingView from '../view/sorting-view/index';
+import ErrorPointView from '../view/error-point-view/index';
 
 export default class MainPresenter {
   #filterType = FilteringType.EVERYTHING;
@@ -33,7 +33,7 @@ export default class MainPresenter {
     upperLimit: TimeLimit.UPPER_LIMIT
   });
 
-  #errorComponent = new ErrorPoint();
+  #errorComponent = new ErrorPointView();
 
   constructor({listContainer, eventsModel, filterModel, buttonNewEvent, infoContainer}) {
     this.#listContainer = listContainer;
@@ -88,7 +88,7 @@ export default class MainPresenter {
       return;
     }
 
-    this.#listEventComponent = new ListEventView({listContainer: this.#listContainer});
+    this.#listEventComponent = new ListEventsView({listContainer: this.#listContainer});
     this.#NewEventPresenter = new NewEventPresenter({
       listContainer: this.#listEventComponent.element,
       onDataChange: this.#handleViewAction,
@@ -127,7 +127,7 @@ export default class MainPresenter {
   }
 
   #renderSort() {
-    this.#sortsComponent = new SortsView(
+    this.#sortsComponent = new SortingView(
       {
         onSortingChange: this.#handleSortChange,
         currentSortType: this.#currentSortType

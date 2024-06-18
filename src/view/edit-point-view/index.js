@@ -40,7 +40,7 @@ export default class EditPointView extends AbstractStatefulView {
       this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#closeFormEditClickHandler);
     }
     if (this.element.querySelector('.event__available-offers')) {
-      this.element.querySelector('.event__available-offers').addEventListener('change', this.#offersClickHandler);
+      this.element.querySelector('.event__available-offers').addEventListener('change', this.#offersChangeHandler);
     }
   }
 
@@ -92,11 +92,11 @@ export default class EditPointView extends AbstractStatefulView {
     });
   };
 
-  #offersClickHandler = (evt) => {
+  #offersChangeHandler = (evt) => {
     const checked = evt.target.checked;
-    const selected = (arr, id) => Array.from(new Set([...arr, id]));
-    const notSelected = (arr, id) => arr.filter((idOffers) => idOffers !== id);
-    const offers = checked ? selected(this._state.offers, evt.target.dataset.offerId) : notSelected(this._state.offers,evt.target.dataset.offerId);
+    const getSelected = (items, id) => Array.from(new Set([...items, id]));
+    const getNotSelected = (items, id) => items.filter((idOffers) => idOffers !== id);
+    const offers = checked ? getSelected(this._state.offers, evt.target.dataset.offerId) : getNotSelected(this._state.offers,evt.target.dataset.offerId);
     evt.preventDefault();
     this.updateElement({
       offers: offers

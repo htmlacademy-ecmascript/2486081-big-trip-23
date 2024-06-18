@@ -1,7 +1,7 @@
 import Observable from '../framework/observable';
 import {UpdatingType} from '../const';
 
-export default class EventsModel extends Observable {
+export default class EventModel extends Observable {
   #eventsApiService = null;
   #points = [];
   #offers = [];
